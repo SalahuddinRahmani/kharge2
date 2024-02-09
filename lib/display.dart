@@ -146,7 +146,7 @@ class _DisplayPageState extends State<DisplayPage> {
                       border: Border.all(color: Colors.black87),
                       borderRadius: BorderRadius.circular(10.0)),
                   child: ListTile(
-                    title: Text('Integer: ${data['int']}'),
+                    title: Text(':قیمت ${data['int']}'),
                     subtitle:   Text('Date: ${data['date']}'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
