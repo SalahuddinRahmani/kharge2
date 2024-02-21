@@ -17,7 +17,7 @@ class _DisplayPageState extends State<DisplayPage> {
     int sum = 0;
 
     for (int i = 0; i < box.length; i++) {
-      final data = box.getAt(i) as Map<String, dynamic>;
+      final data = box.getAt(i) as Map<dynamic, dynamic>;
       sum += data['int'] as int;
     }
 
@@ -26,7 +26,7 @@ class _DisplayPageState extends State<DisplayPage> {
 
   void _updateListTile(BuildContext context, int index) {
     final Box box = Hive.box('data');
-    final data = box.getAt(index) as Map<String, dynamic>;
+    final data = box.getAt(index) as Map<dynamic, dynamic>;
     final TextEditingController stringController =
     TextEditingController(text: data['string']);
     final TextEditingController intController =
@@ -35,11 +35,14 @@ class _DisplayPageState extends State<DisplayPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Update List Tile'),
+        backgroundColor: Colors.blueGrey[200],
+        title: Align(
+            alignment: Alignment.topRight,
+            child: Text(' :  ویرایش')),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Enter new values:'),
+            // Text('Enter new values:'),
             TextField(
               controller: stringController,
               decoration: InputDecoration(labelText: 'نوت'),
@@ -52,7 +55,8 @@ class _DisplayPageState extends State<DisplayPage> {
           ],
         ),
         actions: [
-          TextButton(
+          MaterialButton(
+            color: Colors.blueGrey[400],
             onPressed: () {
               final String newString = stringController.text;
               final int newInt = int.parse(intController.text);
@@ -67,18 +71,20 @@ class _DisplayPageState extends State<DisplayPage> {
 
               Navigator.pop(context);
             },
-            child: Text('آپدیت'),
+            child: Text('آپدیت',style: TextStyle(color: Colors.black),),
           ),
-          TextButton(
+          MaterialButton(
+            color: Colors.blueGrey[400],
             onPressed: () {
               box.deleteAt(index); // Delete the item from the box
               Navigator.pop(context);
             },
-            child: Text('حذف'),
+            child: Text('حذف',style: TextStyle(color: Colors.black),),
           ),
-          TextButton(
+          MaterialButton(
+            color: Colors.blueGrey[400],
             onPressed: () => Navigator.pop(context),
-            child: Text('برگشت'),
+            child: Text('برگشت',style: TextStyle(color: Colors.black),),
           ),
         ],
       ),
@@ -88,14 +94,19 @@ class _DisplayPageState extends State<DisplayPage> {
   void _calculateSum() {
     final int sum = _sumIntegers();
     showDialog(
+
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('کل مجموع'),
-        content: Text(':مجموع $sum'),
+        backgroundColor: Colors.blueGrey[200],
+        title: Align(
+          alignment: Alignment.center,
+            child: Text('کل مجموع')),
+        content: Text(' مجموع: $sum'),
         actions: [
-          TextButton(
+          MaterialButton(
+            color: Colors.blueGrey[300],
             onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+            child: Text('OK',style: TextStyle(color: Colors.black),),
           ),
         ],
       ),
@@ -109,7 +120,7 @@ class _DisplayPageState extends State<DisplayPage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: Colors.blueGrey[100],
+        backgroundColor: Colors.blueGrey[200],
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.blueGrey,
@@ -130,7 +141,7 @@ class _DisplayPageState extends State<DisplayPage> {
             ListView.builder(
               itemCount: box.length,
               itemBuilder: (context, index) {
-                final data = box.getAt(index) as Map<String, dynamic>;
+                final data = box.getAt(index) as Map<dynamic, dynamic>;
 
                 return Container(
                   decoration: BoxDecoration(
@@ -146,60 +157,62 @@ class _DisplayPageState extends State<DisplayPage> {
                       border: Border.all(color: Colors.black87),
                       borderRadius: BorderRadius.circular(10.0)),
                   child: ListTile(
-                    title: Text(':قیمت ${data['int']}'),
+                    leading:
+                    IconButton(
+                        color: Colors.blueGrey[800],
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          //////////
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.blueGrey[300],
+                                  title: Text(
+                                    "حذف شود؟",
+                                    style: TextStyle(color: Colors.black87),
+                                  ),
+                                  actions: [
+                                    MaterialButton(
+                                      color: Colors.red[400],
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        "نخیر",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                    MaterialButton(
+                                      color: Colors.green[400],
+                                      // onPressed: () =>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()},
+                                      onPressed: (){
+                                        setState(()=>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()});
+                                      },
+
+                                      // ;
+                                      //
+                                      //
+                                      child: Text(
+                                        "بلی",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+
+                        }),
+                    title: Text('قیمت: ${data['int']}  اف '),
                     subtitle:   Text('Date: ${data['date']}'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(data['string']),
                         SizedBox(width: 22,),
-                        IconButton(
-                            color: Colors.red[400],
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              //////////
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.blueGrey[300],
-                                      title: Text(
-                                        "حذف شود؟",
-                                        style: TextStyle(color: Colors.black87),
-                                      ),
-                                      actions: [
-                                        MaterialButton(
-                                          color: Colors.red[400],
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "نخیر",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 20),
-                                          ),
-                                        ),
-                                        MaterialButton(
-                                          color: Colors.green[400],
-                                          // onPressed: () =>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()},
-                                          onPressed: (){
-                                            setState(()=>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()});
-                                          },
-
-                                          // ;
-                                          //
-                                          //
-                                          child: Text(
-                                            "بلی",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  });
-
-                            }),
+                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.blueGrey[800],),
                       ],
                     ),
                     onTap: () => _updateListTile(context, index),
@@ -210,7 +223,7 @@ class _DisplayPageState extends State<DisplayPage> {
             ListView.builder(
               itemCount: box.length,
               itemBuilder: (context, index) {
-                final data = box.getAt(index) as Map<String, dynamic>;
+                final data = box.getAt(index) as Map<dynamic, dynamic>;
 
                 return Container(
                   decoration: BoxDecoration(
@@ -227,60 +240,61 @@ class _DisplayPageState extends State<DisplayPage> {
                       borderRadius: BorderRadius.circular(10.0)),
                   child: ListTile(
 
-                    title: Text('Integer: ${data['int']}'),
-                    subtitle: Text(data['string']),
+                    leading: IconButton(
+                        color: Colors.blueGrey[800],
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          //////////
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.blueGrey[400],
+                                  title: Text(
+                                    "حذف شود؟",
+                                    style: TextStyle(color: Colors.black87),
+                                  ),
+                                  actions: [
+                                    MaterialButton(
+                                      color: Colors.red[400],
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        "نخیر",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                    MaterialButton(
+                                      color: Colors.green[400],
+                                      // onPressed: () =>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()},
+                                      onPressed: (){
+                                        setState(()=>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()});
+                                      },
+
+                                      // ;
+                                      //
+                                      //
+                                      child: Text(
+                                        "بلی",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+
+                        }),
+                    title: Text('قیمت:  ${data['int']}  اف '),
+                    subtitle:  Text('Week: ${data['date']}'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Week: ${data['date']}'),
+                        Text(data['string']),
                         SizedBox(width: 22,),
-                        IconButton(
-                            color: Colors.red[400],
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              //////////
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.blueGrey[400],
-                                      title: Text(
-                                        "حذف شود؟",
-                                        style: TextStyle(color: Colors.black87),
-                                      ),
-                                      actions: [
-                                        MaterialButton(
-                                          color: Colors.red[400],
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "نخیر",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 20),
-                                          ),
-                                        ),
-                                        MaterialButton(
-                                          color: Colors.green[400],
-                                          // onPressed: () =>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()},
-                                          onPressed: (){
-                                            setState(()=>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()});
-                                          },
-
-                                          // ;
-                                          //
-                                          //
-                                          child: Text(
-                                            "بلی",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  });
-
-                            }),
+                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.blueGrey[800],),
                       ],
                     ),
                     onTap: () => _updateListTile(context, index),
@@ -291,7 +305,7 @@ class _DisplayPageState extends State<DisplayPage> {
             ListView.builder(
               itemCount: box.length,
               itemBuilder: (context, index) {
-                final data = box.getAt(index) as Map<String, dynamic>;
+                final data = box.getAt(index) as Map<dynamic, dynamic>;
 
                 return Container(
                   decoration: BoxDecoration(
@@ -307,7 +321,54 @@ class _DisplayPageState extends State<DisplayPage> {
                       border: Border.all(color: Colors.black87),
                       borderRadius: BorderRadius.circular(10.0)),
                   child: ListTile(
-                    title:   Text('Integer: ${data['int']}'),
+                    leading:  IconButton(
+                        color: Colors.blueGrey[800],
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          //////////
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.blueGrey[300],
+                                  title: Text(
+                                    "حذف شود؟",
+                                    style: TextStyle(color: Colors.black87),
+                                  ),
+                                  actions: [
+                                    MaterialButton(
+                                      color: Colors.red[400],
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        "نخیر",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                    MaterialButton(
+                                      color: Colors.green[400],
+                                      // onPressed: () =>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()},
+                                      onPressed: (){
+                                        setState(()=>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()});
+                                      },
+
+                                      // ;
+                                      //
+                                      //
+                                      child: Text(
+                                        "بلی",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+
+                        }),
+                    title:   Text('قیمت: ${data['int']}   اف '),
                     subtitle: Text('Month: ${data['date']}'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -317,53 +378,7 @@ class _DisplayPageState extends State<DisplayPage> {
                         //   box.deleteAt(index); // Delete the item from the box
                         //   setState(() {}); // Update the UI after deletion
                         // },
-                        IconButton(
-                            color: Colors.red[400],
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                              //////////
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.blueGrey[300],
-                                      title: Text(
-                                        "حذف شود؟",
-                                        style: TextStyle(color: Colors.black87),
-                                      ),
-                                      actions: [
-                                        MaterialButton(
-                                          color: Colors.red[400],
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "نخیر",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 20),
-                                          ),
-                                        ),
-                                        MaterialButton(
-                                          color: Colors.green[400],
-                                          // onPressed: () =>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()},
-                                    onPressed: (){
-                                            setState(()=>{ box.deleteAt(index),Navigator.pop(context),showSnackbar2()});
-                                    },
-
-                                    // ;
-                                          //
-                                          //
-                                          child: Text(
-                                            "بلی",
-                                            style: TextStyle(
-                                                color: Colors.white, fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  });
-
-                            }),
+                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.blueGrey[800],),
                       ],
                     ),
                     onTap: () => _updateListTile(context, index),

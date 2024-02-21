@@ -25,7 +25,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds:5 ), () {
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp(),));
 
@@ -52,14 +52,30 @@ body: SafeArea(
           bottom: 55,
           //// Shimer
           child: Shimmer.fromColors(
-            baseColor: Colors.black87,
+            baseColor: Colors.black,
             highlightColor: Colors.white,
-            child: Text(
-              ' ❤ خرید روزانه  ❤',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 55.0,
-              ),
+            child: Column(
+              children: [
+                Text(
+                  'به برنامه',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 35.0,
+                  ),
+                ),Text(
+                  '❤ حساب روزانه  ❤',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 35.0,
+                  ),
+                ),Text(
+                  '!خوش آمدید',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 35.0,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
