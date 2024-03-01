@@ -29,12 +29,6 @@ class _SplashState extends State<Splash> {
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp(),));
 
-      // Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(
-      //     builder: (context) => InputPage(),
-      //     maintainState: false,
-      //   ),
-      // );
     });
     return
        Scaffold(
