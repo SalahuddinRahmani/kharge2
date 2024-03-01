@@ -91,27 +91,27 @@ class _DisplayPageState extends State<DisplayPage> {
     );
   }
 
-  void _calculateSum() {
-    final int sum = _sumIntegers();
-    showDialog(
-
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.blueGrey[200],
-        title: Align(
-          alignment: Alignment.center,
-            child: Text('کل مجموع')),
-        content: Text(' مجموع: $sum'),
-        actions: [
-          MaterialButton(
-            color: Colors.blueGrey[300],
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK',style: TextStyle(color: Colors.black),),
-          ),
-        ],
-      ),
-    );
-  }
+  // void _calculateSum() {
+  //   final int sum = _sumIntegers();
+  //   showDialog(
+  //
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       backgroundColor: Colors.blueGrey[200],
+  //       title: Align(
+  //         alignment: Alignment.center,
+  //           child: Text('کل مجموع')),
+  //       content: Text(' مجموع: $sum'),
+  //       actions: [
+  //         MaterialButton(
+  //           color: Colors.blueGrey[300],
+  //           onPressed: () => Navigator.pop(context),
+  //           child: Text('OK',style: TextStyle(color: Colors.black),),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +122,15 @@ class _DisplayPageState extends State<DisplayPage> {
       child: Scaffold(
         backgroundColor: Colors.blueGrey[200],
         appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10,right: 22),
+              child: Text("  مجموع :  ${_sumIntegers()}  افغانی"),
+            ),
+          ],
           centerTitle: true,
           backgroundColor: Colors.blueGrey,
-          title: Text('لیست',style: TextStyle(fontSize: 25),),
+          title: Text('لیست مخارج ',style: TextStyle(fontSize: 25),),
           bottom: TabBar(
 
             indicatorColor: Colors.black87,
@@ -159,7 +165,7 @@ class _DisplayPageState extends State<DisplayPage> {
                   child: ListTile(
                     leading:
                     IconButton(
-                        color: Colors.blueGrey[800],
+                        color: Colors.red[400],
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           //////////
@@ -212,7 +218,7 @@ class _DisplayPageState extends State<DisplayPage> {
                       children: [
                         Text(data['string']),
                         SizedBox(width: 22,),
-                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.blueGrey[800],),
+                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.red[400],),
                       ],
                     ),
                     onTap: () => _updateListTile(context, index),
@@ -241,7 +247,7 @@ class _DisplayPageState extends State<DisplayPage> {
                   child: ListTile(
 
                     leading: IconButton(
-                        color: Colors.blueGrey[800],
+                        color: Colors.red[400],
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           //////////
@@ -294,7 +300,7 @@ class _DisplayPageState extends State<DisplayPage> {
                       children: [
                         Text(data['string']),
                         SizedBox(width: 22,),
-                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.blueGrey[800],),
+                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.red[400],),
                       ],
                     ),
                     onTap: () => _updateListTile(context, index),
@@ -322,7 +328,7 @@ class _DisplayPageState extends State<DisplayPage> {
                       borderRadius: BorderRadius.circular(10.0)),
                   child: ListTile(
                     leading:  IconButton(
-                        color: Colors.blueGrey[800],
+                        color: Colors.red[400],
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           //////////
@@ -378,7 +384,7 @@ class _DisplayPageState extends State<DisplayPage> {
                         //   box.deleteAt(index); // Delete the item from the box
                         //   setState(() {}); // Update the UI after deletion
                         // },
-                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.blueGrey[800],),
+                        IconButton(onPressed:  () => _updateListTile(context, index),icon: Icon(Icons.edit),color: Colors.red[400],),
                       ],
                     ),
                     onTap: () => _updateListTile(context, index),
@@ -390,13 +396,13 @@ class _DisplayPageState extends State<DisplayPage> {
         ),
 
         floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              backgroundColor: Colors.blueGrey,
-              onPressed: _calculateSum,
-              child: Text('مجموع',style: TextStyle(color: Colors.white),),
-            ),
+            // FloatingActionButton(
+            //   backgroundColor: Colors.blueGrey,
+            //   onPressed: _calculateSum,
+            //   child: Text('مجموع',style: TextStyle(color: Colors.white),),
+            // ),
             SizedBox(height: 16),
             FloatingActionButton(
               backgroundColor: Colors.blueGrey,

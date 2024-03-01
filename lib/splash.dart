@@ -25,7 +25,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds:5 ), () {
+    Future.delayed(Duration(seconds:1 ), () {
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp(),));
 
