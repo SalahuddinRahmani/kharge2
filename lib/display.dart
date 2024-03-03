@@ -34,7 +34,7 @@ class _DisplayPageState extends State<DisplayPage> {
 
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (cont) => AlertDialog(
         backgroundColor: Colors.blueGrey[200],
         title: Align(
             alignment: Alignment.topRight,
@@ -67,23 +67,27 @@ class _DisplayPageState extends State<DisplayPage> {
                 'date': data['date'],
               };
 
-              box.putAt(index, newData);
+              setState(() {
+                box.putAt(index, newData);
 
-              Navigator.pop(context);
+                Navigator.pop(cont);
+              });
+
             },
             child: Text('آپدیت',style: TextStyle(color: Colors.black),),
           ),
           MaterialButton(
             color: Colors.blueGrey[400],
-            onPressed: () {
-              box.deleteAt(index); // Delete the item from the box
-              Navigator.pop(context);
-            },
+              onPressed: () { setState(() {
+    Navigator.pop(cont);box.deleteAt(index);
+    });  },
             child: Text('حذف',style: TextStyle(color: Colors.black),),
           ),
           MaterialButton(
             color: Colors.blueGrey[400],
-            onPressed: () => Navigator.pop(context),
+            onPressed: () { setState(() {
+              Navigator.pop(cont);
+            });  } ,
             child: Text('برگشت',style: TextStyle(color: Colors.black),),
           ),
         ],

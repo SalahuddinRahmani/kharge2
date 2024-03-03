@@ -139,256 +139,262 @@ class _InputPageState extends State<InputPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueGrey[200],
-      appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          actions: [
-            PopupMenuButton(
-                color: Colors.white,
-                onSelected: (Value) {},
-                itemBuilder: (context) => [
-                      PopupMenuItem(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return DisplayPage();
-                          }));
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.list_alt,
-                              color: Colors.blue[300],
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text("لیست مخارج",
-                                style: TextStyle(color: Colors.black)),
-                          ],
+    return WillPopScope(
+      onWillPop: ()async{
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.blueGrey[200],
+        appBar: AppBar(
+            backgroundColor: Colors.blueGrey,
+            actions: [
+              PopupMenuButton(
+                  color: Colors.white,
+                  onSelected: (Value) {},
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return DisplayPage();
+                            }));
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.list_alt,
+                                color: Colors.blue[300],
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text("لیست مخارج",
+                                  style: TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
-                      ),
-                      PopupMenuItem(
-                        onTap: () {
-                          // Share.share(text);
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.share,
-                              color: Colors.blue[300],
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(text, style: TextStyle(color: Colors.black)),
-                          ],
+                        PopupMenuItem(
+                          onTap: () {
+                            // Share.share(text);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.share,
+                                color: Colors.blue[300],
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(text, style: TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
-                      ),
-                      PopupMenuItem(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (aa) {
-                            return AboutPage2();
-                          }));
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.info_outline,
-                              color: Colors.blue[300],
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "در باره سازنده",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
+                        PopupMenuItem(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (aa) {
+                              return AboutPage2();
+                            }));
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.info_outline,
+                                color: Colors.blue[300],
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "در باره سازنده",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      PopupMenuItem(
-                        onTap: () {
-                          exit(0);
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: Colors.red[400],
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text("خارج شدن از برنامه",
-                                style: TextStyle(color: Colors.black)),
-                          ],
+                        PopupMenuItem(
+                          onTap: () {
+                            exit(0);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.exit_to_app,
+                                color: Colors.red[400],
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text("خارج شدن از برنامه",
+                                  style: TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
-                      ),
-                    ]),
-          ],
-          centerTitle: true,
-          title: Text('حساب روزانه')),
-      // ... rest of the code ...
+                      ]),
+            ],
+            centerTitle: true,
+            title: Text('حساب روزانه')),
+        // ... rest of the code ...
 
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 110,
-                  child: TextField(
-                    controller: dateController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 110,
+                    child: TextField(
+                      controller: dateController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        // hintText: 'تاریخ    ',
                       ),
-                      // hintText: 'تاریخ    ',
                     ),
                   ),
-                ),
-                Text('       : تاریخ      ',
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
+                  Text('       : تاریخ      ',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 380,
+                    child: TextField(
+                      textAlign: TextAlign.right,
+                      controller: intController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+
+                        errorText: note,
+                        // errorStyle: TextStyle(color: Colors.red,fontSize: 15),
+                        labelText: 'قیمت را وارد کنید',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: Text(
+                      '       : مبلغ پول',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 380,
+                    child: TextField(
+                      textAlign: TextAlign.right,
+                      // textDirection: TextDirection.rtl,
+
+                      maxLines: 2,
+                      controller: stringController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        labelText: 'نوت را وارد کنید',
+                        errorText: note,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: Text(
+                      '           : نوت   ',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(right: 66),
+                child: Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   width: 380,
-                  child: TextField(
-                    textAlign: TextAlign.right,
-                    controller: intController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-
-                      errorText: note,
-                      // errorStyle: TextStyle(color: Colors.red,fontSize: 15),
-                      labelText: 'قیمت را وارد کنید',
+                  child: MaterialButton(
+                    height: 44,
+                    color: Colors.blueGrey,
+                    onPressed: () {
+                      validateTextField();
+                      _saveData(context);
+                      showSnackbar2();
+                    },
+                    child: Text(
+                      'ذخیره',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: Text(
-                    '       : مبلغ پول',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 1,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(right: 66),
+                child: Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   width: 380,
-                  child: TextField(
-                    textAlign: TextAlign.right,
-                    // textDirection: TextDirection.rtl,
-
-                    maxLines: 2,
-                    controller: stringController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-                      labelText: 'نوت را وارد کنید',
-                      errorText: note,
+                  child: MaterialButton(
+                    height: 44,
+                    color: Colors.blueGrey,
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return DisplayPage();
+                      }));
+                    },
+                    child: Text(
+                      'مخارج',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: Text(
-                    '           : نوت   ',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(right: 66),
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                width: 380,
-                child: MaterialButton(
-                  height: 44,
-                  color: Colors.blueGrey,
-                  onPressed: () {
-                    validateTextField();
-                    _saveData(context);
-                    showSnackbar2();
-                  },
-                  child: Text(
-                    'ذخیره',
-                    style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(right: 66),
+                child: Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  width: 380,
+                  child: MaterialButton(
+                    height: 44,
+                    color: Colors.blueGrey,
+                    onPressed: () {
+                      intController.clear();
+                      stringController.clear();
+                    },
+                    child: Text(
+                      'انصراف',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(right: 66),
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                width: 380,
-                child: MaterialButton(
-                  height: 44,
-                  color: Colors.blueGrey,
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return DisplayPage();
-                    }));
-                  },
-                  child: Text(
-                    'مخارج',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(right: 66),
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                width: 380,
-                child: MaterialButton(
-                  height: 44,
-                  color: Colors.blueGrey,
-                  onPressed: () {
-                    intController.clear();
-                    stringController.clear();
-                  },
-                  child: Text(
-                    'انصراف',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
