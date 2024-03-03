@@ -70,6 +70,7 @@ class _DisplayPageState extends State<DisplayPage> {
               setState(() {
                 box.putAt(index, newData);
 
+
                 Navigator.pop(cont);
               });
 
